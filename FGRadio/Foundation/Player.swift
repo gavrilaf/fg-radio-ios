@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 import AVKit
+import MediaPlayer
 
 final class Player: NSObject, ObservableObject {
     enum Status {
@@ -11,7 +12,13 @@ final class Player: NSObject, ObservableObject {
         case playing
     }
     
-    @Published private(set) var trackTitle = TrackTitle.makeEmpty()
+    @Published private(set) var trackTitle = TrackTitle.makeEmpty() {
+        didSet {
+            print("Updated track title \(trackTitle)")
+            setupNowPlaying()
+        }
+    }
+    
     @Published private(set) var status: Status = .starting
     
     init(url: URL) {
@@ -55,14 +62,53 @@ final class Player: NSObject, ObservableObject {
                     fatalError("update application")
                 }
             }.store(in: &observationsBag)
+            
+            setupRemoteTransportControls()
+            
         } catch let err {
             print("av player error \(err)")
         }
     }
     
+    func setupRemoteTransportControls() {
+        // Get the shared MPRemoteCommandCenter
+        let commandCenter = MPRemoteCommandCenter.shared()
+
+        // Add handler for Play Command
+        commandCenter.playCommand.addTarget { [unowned self] event in
+            if self.status == .readyToPlay {
+                self.play()
+                return .success
+            }
+            return .commandFailed
+        }
+
+        // Add handler for Pause Command
+        commandCenter.pauseCommand.addTarget { [unowned self] event in
+            if self.status == .playing {
+                self.pause()
+                return .success
+            }
+            return .commandFailed
+        }
+    }
+    
+    func setupNowPlaying() {
+        var nowPlayingInfo = [String : Any]()
+        
+        nowPlayingInfo[MPMediaItemPropertyArtist] = trackTitle.title
+        nowPlayingInfo[MPMediaItemPropertyTitle] = trackTitle.subtitle
+
+        if let image = UIImage(named: "logo-dark") {
+            nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: image.size) { size in return image }
+        }
+
+        // Set the metadata
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+    }
+    
     func play() {
         player.play()
-        
     }
     
     func pause() {
@@ -77,7 +123,10 @@ final class Player: NSObject, ObservableObject {
 }
 
 extension Player: AVPlayerItemMetadataOutputPushDelegate {
-    func metadataOutput(_ output: AVPlayerItemMetadataOutput, didOutputTimedMetadataGroups groups: [AVTimedMetadataGroup], from track: AVPlayerItemTrack?) {
+    func metadataOutput(_ output: AVPlayerItemMetadataOutput,
+                        didOutputTimedMetadataGroups groups: [AVTimedMetadataGroup],
+                        from track: AVPlayerItemTrack?) {
+        print("updated metadata output")
         groups.forEach { (group) in
             group.items.forEach { (item) in
                 guard let id = item.identifier, let value = item.stringValue else { return }

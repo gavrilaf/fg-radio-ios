@@ -36,7 +36,6 @@ final class PlayerViewModel: ObservableObject {
                     self.isButtonEnabled = false
                     self.buttonState = ButtonState.play.rawValue
                     self.indicatorState = .pause
-                    self.trackTitle = TrackTitle.makeEmpty()
                 case .readyToPlay:
                     self.isButtonEnabled = true
                     self.buttonState = ButtonState.play.rawValue
