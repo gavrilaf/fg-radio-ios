@@ -63,6 +63,9 @@ final class Config {
     @RemoteConfigURLWrapper("fb_url", defaultValue: "https://www.facebook.com/FirstGearShow/")
     var fbUrl: URL
     
+    @RemoteConfigURLWrapper("fb_app_url", defaultValue: "fb://profile/148818115286637/")
+    var fbAppUrl: URL
+    
     @RemoteConfigURLWrapper("youtube_url", defaultValue: "https://www.youtube.com/channel/UCMJ2LV3LxETcHcW6uKRDPHQ")
     var youtubeUrl: URL
     

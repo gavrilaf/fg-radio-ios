@@ -68,7 +68,11 @@ final class PlayerViewModel: ObservableObject {
         case .instagram:
             url = Config.config.intstagramUrl
         case .fb:
-            url = Config.config.fbUrl
+            if UIApplication.shared.canOpenURL(Config.config.fbAppUrl) {
+                url = Config.config.fbAppUrl
+            } else {
+                url = Config.config.fbUrl
+            }
         case .youTube:
             url = Config.config.youtubeUrl
         case .site:
