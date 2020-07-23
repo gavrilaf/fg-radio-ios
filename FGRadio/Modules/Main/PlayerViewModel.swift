@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 import UIKit
+import MediaPlayer
 
 final class PlayerViewModel: ObservableObject {
     
@@ -26,7 +27,7 @@ final class PlayerViewModel: ObservableObject {
     
     init(player: Player) {
         self.player = player
-        
+
         cancelBag.collect {
             player.$status.sink { [weak self] (status) in
                 guard let self = self else { return }
@@ -47,13 +48,18 @@ final class PlayerViewModel: ObservableObject {
                 }
             }
             
-            player.$trackTitle.sink { [weak self] (title) in
-                guard let self = self else { return }
-                self.trackTitle = title
+            player.$trackTitle.sink { [weak self] in
+                self?.trackTitle = $0
+            }
+            
+            player.$volume.sink { [weak self] in
+                self?.volume = $0
             }
         }
+        
+        self.volume = player.volume
     }
-    
+        
     func playTapped() {
         if player.status == .readyToPlay {
             player.play()
@@ -82,11 +88,18 @@ final class PlayerViewModel: ObservableObject {
         UIApplication.shared.open(url)
     }
     
+    func updateVolume() {
+        player.volume = volume
+    }
+    
+    @Published var volume: Float = 0.5
+    
+    @Published var indicatorState: MusicIndicator.AudioState = .pause
     @Published private(set) var trackTitle = TrackTitle.makeEmpty()
     @Published private(set) var isButtonEnabled = false
     @Published private(set) var buttonState = ButtonState.play.rawValue
     
-    @Published var indicatorState: MusicIndicator.AudioState = .pause
+    // MARK:- private
     
     private let player: Player
     private var cancelBag = CancelBag()

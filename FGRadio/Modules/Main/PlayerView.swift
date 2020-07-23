@@ -1,4 +1,5 @@
 import SwiftUI
+import MediaPlayer
 
 struct PlayerView: View {
     @ObservedObject var model: PlayerViewModel
@@ -33,7 +34,7 @@ struct PlayerView: View {
     
     var body: some View {
         ZStack {
-            Color.black.edgesIgnoringSafeArea(.vertical)
+            Color.mainBackground.edgesIgnoringSafeArea(.vertical)
             
             VStack {
                 self.links
@@ -54,24 +55,29 @@ struct PlayerView: View {
                         .font(.system(size: 24))
                         .multilineTextAlignment(.center)
                         .lineLimit(2)
-                        .foregroundColor(Color.white)
+                        .foregroundColor(self.model.trackTitle.titleColor)
                     
                     Text(self.model.trackTitle.subtitle)
                         .font(.system(size: 24))
                         .multilineTextAlignment(.center)
                         .lineLimit(2)
-                        .foregroundColor(Color.secondaryTextDark)
-                }.padding()
+                        .foregroundColor(self.model.trackTitle.sublitleColor)
+                }.frame(height: 90)
                 
-                Spacer()
+                Slider(value: self.$model.volume, in: 0...1,step: 0.0625, onEditingChanged: { data in
+                    self.model.updateVolume()
+                }).padding()
                 
                 self.playerButton
                     .padding(.bottom, 10)
                 
                 MusicIndicator(state: self.$model.indicatorState)
                     .frame(width: 18, height: 18)
-                    .padding(.bottom, 140)
-            }.padding()
+                
+                Spacer()
+            }
+            .padding(.top, 7)
+            .padding(.horizontal, 24)
         }
     }
 }

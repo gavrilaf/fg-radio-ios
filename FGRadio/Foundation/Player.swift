@@ -12,10 +12,22 @@ final class Player: NSObject, ObservableObject {
         case playing
     }
     
+    private enum Const {
+        static let volumeChangedNotification    = NSNotification.Name("AVSystemController_SystemVolumeDidChangeNotification")
+        static let volumeLevelParam             = "AVSystemController_AudioVolumeNotificationParameter"
+        static let volumeChangeReasonParam      = "AVSystemController_AudioVolumeChangeReasonNotificationParameter"
+        static let reasonExplicit               = "ExplicitVolumeChange"
+    }
+    
     @Published private(set) var trackTitle = TrackTitle.makeEmpty() {
         didSet {
-            print("Updated track title \(trackTitle)")
             setupNowPlaying()
+        }
+    }
+    
+    @Published var volume: Float = 0.5 {
+        didSet {
+            volumeView.setVolume(volume)
         }
     }
     
@@ -23,12 +35,24 @@ final class Player: NSObject, ObservableObject {
     
     init(url: URL) {
         self.url = url
+        super.init()
+        
+        //Add observer for the volume change event
+        NotificationCenter.default.addObserver(self, selector: #selector(volumeChanged), name: Const.volumeChangedNotification, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: Const.volumeChangedNotification, object: nil)
     }
     
     func start() {
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+            let audioSession = AVAudioSession.sharedInstance()
+            
+            try audioSession.setCategory(AVAudioSession.Category.playback)
             player = AVPlayer(url: url)
+            
+            volume = audioSession.outputVolume
             
             let metadataOutput = AVPlayerItemMetadataOutput(identifiers: nil)
             metadataOutput.setDelegate(self, queue: DispatchQueue.main)
@@ -64,9 +88,8 @@ final class Player: NSObject, ObservableObject {
             }.store(in: &observationsBag)
             
             setupRemoteTransportControls()
-            
         } catch let err {
-            print("av player error \(err)")
+            fatalError("AV session error \(err)")
         }
     }
     
@@ -117,8 +140,19 @@ final class Player: NSObject, ObservableObject {
     
     // MARK:- private
     
+    @objc func volumeChanged(notification: NSNotification) {
+        guard
+            let info = notification.userInfo,
+            let reason = info[Const.volumeChangeReasonParam] as? String,
+            reason == Const.reasonExplicit,
+            let volume = info[Const.volumeLevelParam] as? Float else { return }
+        
+        self.volume = volume
+    }
+    
     private let url: URL
     private var player: AVPlayer!
+    private let volumeView = MPVolumeView()
     private var observationsBag = ObservationsBag()
 }
 
@@ -126,7 +160,7 @@ extension Player: AVPlayerItemMetadataOutputPushDelegate {
     func metadataOutput(_ output: AVPlayerItemMetadataOutput,
                         didOutputTimedMetadataGroups groups: [AVTimedMetadataGroup],
                         from track: AVPlayerItemTrack?) {
-        print("updated metadata output")
+        
         groups.forEach { (group) in
             group.items.forEach { (item) in
                 guard let id = item.identifier, let value = item.stringValue else { return }
