@@ -74,20 +74,15 @@ final class Config {
     
     init() {}
     
-    func fetch() {
-        remote.fetch() { [weak self] (status, error) -> Void in
-            guard let self = self else { return }
-            if status == .success {
-                self.remote.activate() { (changed, error) in
-                    if error != nil {
-                        print("Config activating error: \(error?.localizedDescription ?? "No error available.")")
-                    } else {
-                        print("Config activated!")
-                    }
-                }
+    func fetch(completion: @escaping () -> Void) {
+        remote.fetchAndActivate { (status, error) in
+            if let error = error {
+                print("Config fetching error: \(error.localizedDescription)")
             } else {
-                print("Config fetching error: \(error?.localizedDescription ?? "No error available.")")
+                print("Remote config fetched")
             }
+            
+            completion()
         }
     }
     
@@ -95,7 +90,7 @@ final class Config {
         let config = RemoteConfig.remoteConfig()
         
         let settings = RemoteConfigSettings()
-        settings.minimumFetchInterval = 0
+        settings.minimumFetchInterval = 0 // TODO: fix
         
         config.configSettings = settings
         

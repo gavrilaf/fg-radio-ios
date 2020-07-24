@@ -32,17 +32,27 @@ final class PlayerViewModel: ObservableObject {
             player.$status.sink { [weak self] (status) in
                 guard let self = self else { return }
                 
+                print("model status: \(status)")
+                
                 switch status {
-                case .starting, .preparingToPlay, .error:
+                case .starting, .preparingToPlay:
                     self.isButtonEnabled = false
+                    self.showError = false
+                    self.buttonState = ButtonState.play.rawValue
+                    self.indicatorState = .pause
+                case .error:
+                    self.isButtonEnabled = true
+                    self.showError = true
                     self.buttonState = ButtonState.play.rawValue
                     self.indicatorState = .pause
                 case .readyToPlay:
                     self.isButtonEnabled = true
+                    self.showError = false
                     self.buttonState = ButtonState.play.rawValue
                     self.indicatorState = .pause
                 case .playing:
                     self.isButtonEnabled = true
+                    self.showError = false
                     self.buttonState = ButtonState.pause.rawValue
                     self.indicatorState = .play
                 }
@@ -61,10 +71,10 @@ final class PlayerViewModel: ObservableObject {
     }
         
     func playTapped() {
-        if player.status == .readyToPlay {
-            player.play()
-        } else if player.status == .playing {
+        if player.status == .playing {
             player.pause()
+        } else {
+            player.play()
         }
     }
     
@@ -98,6 +108,7 @@ final class PlayerViewModel: ObservableObject {
     @Published private(set) var trackTitle = TrackTitle.makeEmpty()
     @Published private(set) var isButtonEnabled = false
     @Published private(set) var buttonState = ButtonState.play.rawValue
+    @Published private(set) var showError = false
     
     // MARK:- private
     

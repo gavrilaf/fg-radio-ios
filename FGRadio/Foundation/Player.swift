@@ -14,6 +14,7 @@ final class Player: NSObject, ObservableObject {
     
     private enum Const {
         static let volumeChangedNotification    = NSNotification.Name("AVSystemController_SystemVolumeDidChangeNotification")
+        
         static let volumeLevelParam             = "AVSystemController_AudioVolumeNotificationParameter"
         static let volumeChangeReasonParam      = "AVSystemController_AudioVolumeChangeReasonNotificationParameter"
         static let reasonExplicit               = "ExplicitVolumeChange"
@@ -33,11 +34,10 @@ final class Player: NSObject, ObservableObject {
     
     @Published private(set) var status: Status = .starting
     
-    init(url: URL) {
-        self.url = url
+    override init() {
         super.init()
         
-        //Add observer for the volume change event
+        // Add observer for the volume change event
         NotificationCenter.default.addObserver(self, selector: #selector(volumeChanged), name: Const.volumeChangedNotification, object: nil)
     }
     
@@ -45,12 +45,14 @@ final class Player: NSObject, ObservableObject {
         NotificationCenter.default.removeObserver(self, name: Const.volumeChangedNotification, object: nil)
     }
     
-    func start() {
+    func start(url: URL) {
         do {
             let audioSession = AVAudioSession.sharedInstance()
             
             try audioSession.setCategory(AVAudioSession.Category.playback)
-            player = AVPlayer(url: url)
+            
+            let playerItem = AVPlayerItem(url: url)
+            player = AVPlayer(playerItem: playerItem)
             
             volume = audioSession.outputVolume
             
@@ -61,6 +63,7 @@ final class Player: NSObject, ObservableObject {
             
             player.observe(\.status) { [weak self] _, _ in
                 guard let self = self else { return }
+                                
                 switch self.player.status {
                 case .unknown:
                     self.status = .starting
@@ -75,6 +78,9 @@ final class Player: NSObject, ObservableObject {
             
             player.observe(\.timeControlStatus) { [weak self] _, _ in
                 guard let self = self else { return }
+                
+                print("status: \(self.player.timeControlStatus.rawValue)")
+                
                 switch self.player.timeControlStatus {
                 case .waitingToPlayAtSpecifiedRate:
                     self.status = .preparingToPlay
@@ -86,7 +92,7 @@ final class Player: NSObject, ObservableObject {
                     fatalError("update application")
                 }
             }.store(in: &observationsBag)
-            
+                        
             setupRemoteTransportControls()
         } catch let err {
             fatalError("AV session error \(err)")
@@ -132,9 +138,21 @@ final class Player: NSObject, ObservableObject {
     
     func play() {
         player.play()
+        
+        self.checkIsPlaying = DispatchWorkItem { [weak self] in
+            guard let self = self else { return }
+            
+            if self.player.timeControlStatus != .playing {
+                self.status = .error
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: self.checkIsPlaying!)
     }
     
     func pause() {
+        self.checkIsPlaying?.cancel()
+        
         player.pause()
     }
     
@@ -149,10 +167,12 @@ final class Player: NSObject, ObservableObject {
         
         self.volume = volume
     }
-    
-    private let url: URL
+        
     private var player: AVPlayer!
     private let volumeView = MPVolumeView()
+    
+    private var checkIsPlaying: DispatchWorkItem?
+    
     private var observationsBag = ObservationsBag()
 }
 

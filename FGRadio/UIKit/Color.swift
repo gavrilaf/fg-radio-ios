@@ -12,5 +12,6 @@ extension Color {
     static let mainBackground = Color.black
     static let primaryText = Color.white
     static let secondaryText = Color(UIColor(red: 0.529, green: 0.529, blue: 0.529, alpha: 1))
+    static let errorText = Color.red
 }
 

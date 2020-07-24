@@ -42,13 +42,19 @@ struct PlayerView: View {
                 
                 Text("FIRSTGEAR")
                     .foregroundColor(Color.white)
-                Text("РАДИО")
+                Text("RADIO")
                     .foregroundColor(Color.white)
                     .bold()
                 
                 Image("logo-dark")
                     .resizable()
                     .frame(width: 177, height: 177)
+                
+                if model.showError {
+                    Text("Не вдалося завантажити стрім. Зачекайте трохи або зателефонуйте нам.")
+                        .foregroundColor(Color.errorText)
+                        .multilineTextAlignment(.center)
+                }
                 
                 VStack {
                     Text(self.model.trackTitle.title)

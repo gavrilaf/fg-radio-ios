@@ -11,15 +11,18 @@ import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
-    var player: Player!
+    var player = Player()
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        player = Player(url: Config.config.streamUrl)
-        player.start()
+        Config.config.fetch {
+            DispatchQueue.main.async {
+                self.player.start(url: Config.config.streamUrl)
+            }
+        }
         
         // Create the SwiftUI view that provides the window contents.
-        let mainView = PlayerView(model: PlayerViewModel(player: player!))
+        let mainView = PlayerView(model: PlayerViewModel(player: player))
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
