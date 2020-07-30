@@ -83,6 +83,7 @@
       "size" : "76x76"
     },
     {
+      "filename" : "ipad.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "76x76"
@@ -94,6 +95,7 @@
       "size" : "83.5x83.5"
     },
     {
+      "filename" : "AppleStore.png",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"
