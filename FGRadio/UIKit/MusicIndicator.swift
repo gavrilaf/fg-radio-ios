@@ -69,7 +69,8 @@ struct MusicIndicator: View {
         let animations: [Animation] = [.easeIn, .easeOut, .easeInOut, .linear]
         let values = (0 ..< lineCount).compactMap { (id) -> AnimationValue? in
             guard let animation = animations.randomElement() else { return nil }
-            return AnimationValue(id: id, maxValue: CGFloat.random(in: valueRange),
+            return AnimationValue(id: id,
+                                  maxValue: CGFloat.random(in: valueRange),
                                   animation: animation.speed(Double.random(in: speedRange)))
         }
         return values

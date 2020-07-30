@@ -54,7 +54,7 @@ final class Config {
     
     static let config = Config()
     
-    @RemoteConfigURLWrapper("stream_url", defaultValue: "http://217.25.202.21:8000/live")
+    @RemoteConfigURLWrapper("stream_url", defaultValue: "https://radio.firstgear.ua/live")
     var streamUrl: URL
     
     @RemoteConfigURLWrapper("intstagram_url", defaultValue: "https://www.instagram.com/firstgearshow/")
