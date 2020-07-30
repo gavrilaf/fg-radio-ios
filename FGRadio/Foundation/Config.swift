@@ -88,12 +88,9 @@ final class Config {
     
     fileprivate lazy var remote: RemoteConfig = {
         let config = RemoteConfig.remoteConfig()
-        
         let settings = RemoteConfigSettings()
-        settings.minimumFetchInterval = 0 // TODO: fix
         
         config.configSettings = settings
-        
         return config
     }()
 }

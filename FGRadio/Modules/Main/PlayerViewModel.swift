@@ -9,7 +9,6 @@
 import Foundation
 import Combine
 import UIKit
-import MediaPlayer
 
 final class PlayerViewModel: ObservableObject {
     
@@ -21,8 +20,9 @@ final class PlayerViewModel: ObservableObject {
     }
     
     enum ButtonState: String {
-        case play = "play-dark"
-        case pause = "pause-dark"
+        case preparing
+        case play
+        case pause
     }
     
     init(player: Player) {
@@ -35,25 +35,41 @@ final class PlayerViewModel: ObservableObject {
                 print("model status: \(status)")
                 
                 switch status {
-                case .starting, .preparingToPlay:
+                case .starting:
                     self.isButtonEnabled = false
                     self.showError = false
-                    self.buttonState = ButtonState.play.rawValue
+                    self.buttonState = ButtonState.preparing
                     self.indicatorState = .pause
+                case .preparingToPlay:
+                    if self.alreadyPlayed {
+                        self.isButtonEnabled = false
+                        self.showError = false
+                        self.buttonState = ButtonState.play
+                        self.indicatorState = .pause
+                    } else {
+                        self.buttonState = ButtonState.preparing
+                    }
                 case .error:
                     self.isButtonEnabled = true
                     self.showError = true
-                    self.buttonState = ButtonState.play.rawValue
+                    self.buttonState = ButtonState.play
                     self.indicatorState = .pause
                 case .readyToPlay:
-                    self.isButtonEnabled = true
-                    self.showError = false
-                    self.buttonState = ButtonState.play.rawValue
-                    self.indicatorState = .pause
+                    if self.alreadyShowed {
+                        self.isButtonEnabled = true
+                        self.showError = false
+                        self.buttonState = ButtonState.play
+                        self.indicatorState = .pause
+                    } else {
+                        self.alreadyShowed = true
+                        self.playTapped()
+                    }
+                    
                 case .playing:
+                    self.alreadyPlayed = true
                     self.isButtonEnabled = true
                     self.showError = false
-                    self.buttonState = ButtonState.pause.rawValue
+                    self.buttonState = ButtonState.pause
                     self.indicatorState = .play
                 }
             }
@@ -68,6 +84,10 @@ final class PlayerViewModel: ObservableObject {
         }
         
         self.volume = player.volume
+    }
+    
+    func onAppear() {
+        
     }
         
     func playTapped() {
@@ -103,14 +123,28 @@ final class PlayerViewModel: ObservableObject {
     }
     
     @Published var volume: Float = 0.5
-    
     @Published var indicatorState: MusicIndicator.AudioState = .pause
+    
     @Published private(set) var trackTitle = TrackTitle.makeEmpty()
     @Published private(set) var isButtonEnabled = false
-    @Published private(set) var buttonState = ButtonState.play.rawValue
+    @Published private(set) var buttonState = ButtonState.preparing
     @Published private(set) var showError = false
     
+    var buttonImage: String {
+        switch buttonState {
+        case .preparing:
+            return ""
+        case .play:
+            return "play-dark"
+        case .pause:
+            return "pause-dark"
+        }
+    }
+    
     // MARK:- private
+    
+    private var alreadyShowed = false
+    private var alreadyPlayed = false
     
     private let player: Player
     private var cancelBag = CancelBag()

@@ -8,7 +8,7 @@ struct PlayerView: View {
         Button(action: {
             self.model.playTapped()
         }) {
-            Image(self.model.buttonState)
+            Image(self.model.buttonImage)
                 .renderingMode(.original)
                 .resizable()
                 .frame(width: 100, height: 100)
@@ -70,20 +70,26 @@ struct PlayerView: View {
                         .foregroundColor(self.model.trackTitle.sublitleColor)
                 }.frame(height: 90)
                 
-                Slider(value: self.$model.volume, in: 0...1,step: 0.0625, onEditingChanged: { data in
-                    self.model.updateVolume()
-                }).padding()
-                
-                self.playerButton
-                    .padding(.bottom, 10)
-                
-                MusicIndicator(state: self.$model.indicatorState)
-                    .frame(width: 18, height: 18)
-                
-                Spacer()
+                if self.model.buttonState == .preparing {
+                    ActivityIndicator(isAnimating: .constant(true), style: .large, color: .gray)
+                } else {
+                    Slider(value: self.$model.volume, in: 0...1,step: 0.0625, onEditingChanged: { data in
+                        self.model.updateVolume()
+                    }).padding()
+                    
+                    self.playerButton
+                        .padding(.bottom, 10)
+                    
+                    MusicIndicator(state: self.$model.indicatorState)
+                        .frame(width: 18, height: 18)
+                    
+                    Spacer()
+                }
             }
             .padding(.top, 7)
             .padding(.horizontal, 24)
+        }.onAppear {
+            
         }
     }
 }

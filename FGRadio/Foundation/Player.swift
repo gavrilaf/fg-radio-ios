@@ -147,7 +147,8 @@ final class Player: NSObject, ObservableObject {
             }
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: self.checkIsPlaying!)
+        // If radio won't start playing after 3 seconds, show an error
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: self.checkIsPlaying!)
     }
     
     func pause() {
