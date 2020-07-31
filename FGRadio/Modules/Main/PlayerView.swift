@@ -73,10 +73,10 @@ struct PlayerView: View {
                 if self.model.buttonState == .preparing {
                     ActivityIndicator(isAnimating: .constant(true), style: .large, color: .gray)
                 } else {
-                    Slider(value: self.$model.volume, in: 0...1,step: 0.0625, onEditingChanged: { data in
-                        self.model.updateVolume()
-                    }).padding()
-                    
+                    VolumeSlider()
+                        .frame(height: 40)
+                        .padding(.horizontal)
+                                        
                     self.playerButton
                         .padding(.bottom, 10)
                     

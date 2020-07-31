@@ -11,39 +11,14 @@ final class Player: NSObject, ObservableObject {
         case preparingToPlay
         case playing
     }
-    
-    private enum Const {
-        static let volumeChangedNotification    = NSNotification.Name("AVSystemController_SystemVolumeDidChangeNotification")
         
-        static let volumeLevelParam             = "AVSystemController_AudioVolumeNotificationParameter"
-        static let volumeChangeReasonParam      = "AVSystemController_AudioVolumeChangeReasonNotificationParameter"
-        static let reasonExplicit               = "ExplicitVolumeChange"
-    }
-    
     @Published private(set) var trackTitle = TrackTitle.makeEmpty() {
         didSet {
             setupNowPlaying()
         }
     }
-    
-    @Published var volume: Float = 0.5 {
-        didSet {
-            volumeView.setVolume(volume)
-        }
-    }
-    
-    @Published private(set) var status: Status = .starting
-    
-    override init() {
-        super.init()
         
-        // Add observer for the volume change event
-        NotificationCenter.default.addObserver(self, selector: #selector(volumeChanged), name: Const.volumeChangedNotification, object: nil)
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: Const.volumeChangedNotification, object: nil)
-    }
+    @Published private(set) var status: Status = .starting
     
     func start(url: URL) {
         do {
@@ -53,8 +28,6 @@ final class Player: NSObject, ObservableObject {
             
             let playerItem = AVPlayerItem(url: url)
             player = AVPlayer(playerItem: playerItem)
-            
-            volume = audioSession.outputVolume
             
             let metadataOutput = AVPlayerItemMetadataOutput(identifiers: nil)
             metadataOutput.setDelegate(self, queue: DispatchQueue.main)
@@ -158,22 +131,8 @@ final class Player: NSObject, ObservableObject {
     }
     
     // MARK:- private
-    
-    @objc func volumeChanged(notification: NSNotification) {
-        guard
-            let info = notification.userInfo,
-            let reason = info[Const.volumeChangeReasonParam] as? String,
-            reason == Const.reasonExplicit,
-            let volume = info[Const.volumeLevelParam] as? Float else { return }
-        
-        self.volume = volume
-    }
-        
     private var player: AVPlayer!
-    private let volumeView = MPVolumeView()
-    
     private var checkIsPlaying: DispatchWorkItem?
-    
     private var observationsBag = ObservationsBag()
 }
 

@@ -77,19 +77,9 @@ final class PlayerViewModel: ObservableObject {
             player.$trackTitle.sink { [weak self] in
                 self?.trackTitle = $0
             }
-            
-            player.$volume.sink { [weak self] in
-                self?.volume = $0
-            }
         }
-        
-        self.volume = player.volume
     }
-    
-    func onAppear() {
-        
-    }
-        
+            
     func playTapped() {
         if player.status == .playing {
             player.pause()
@@ -117,14 +107,8 @@ final class PlayerViewModel: ObservableObject {
         
         UIApplication.shared.open(url)
     }
-    
-    func updateVolume() {
-        player.volume = volume
-    }
-    
-    @Published var volume: Float = 0.5
+        
     @Published var indicatorState: MusicIndicator.AudioState = .pause
-    
     @Published private(set) var trackTitle = TrackTitle.makeEmpty()
     @Published private(set) var isButtonEnabled = false
     @Published private(set) var buttonState = ButtonState.preparing
