@@ -68,23 +68,27 @@ struct PlayerView: View {
                         .multilineTextAlignment(.center)
                         .lineLimit(2)
                         .foregroundColor(self.model.trackTitle.sublitleColor)
-                }.frame(height: 90)
+                }
+                .frame(height: 90)
+                .padding(.top, 10)
                 
                 if self.model.buttonState == .preparing {
+                    Spacer()
                     ActivityIndicator(isAnimating: .constant(true), style: .large, color: .gray)
                 } else {
                     VolumeSlider()
                         .frame(height: 40)
                         .padding(.horizontal)
+                        .padding(.top, 10)
                                         
                     self.playerButton
-                        .padding(.bottom, 10)
+                        .padding(.top, 10)
                     
                     MusicIndicator(state: self.$model.indicatorState)
-                        .frame(width: 18, height: 18)
-                    
-                    Spacer()
+                        .frame(width: 24, height: 24)
                 }
+                
+                Spacer()
             }
             .padding(.top, 7)
             .padding(.horizontal, 24)
