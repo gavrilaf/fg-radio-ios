@@ -40,6 +40,7 @@ final class PlayerViewModel: ObservableObject {
                     self.showError = false
                     self.buttonState = ButtonState.preparing
                     self.indicatorState = .pause
+                
                 case .preparingToPlay:
                     if self.alreadyPlayed {
                         self.isButtonEnabled = false
@@ -49,11 +50,13 @@ final class PlayerViewModel: ObservableObject {
                     } else {
                         self.buttonState = ButtonState.preparing
                     }
+                
                 case .error:
                     self.isButtonEnabled = true
                     self.showError = true
                     self.buttonState = ButtonState.play
                     self.indicatorState = .pause
+                
                 case .readyToPlay:
                     if self.alreadyShowed {
                         self.isButtonEnabled = true
@@ -81,9 +84,13 @@ final class PlayerViewModel: ObservableObject {
     }
             
     func playTapped() {
-        if player.status == .playing {
+        switch player.status {
+        case .error:
+            player.start(url: Config.config.streamUrl)
+            player.play()
+        case .playing:
             player.pause()
-        } else {
+        default:
             player.play()
         }
     }
