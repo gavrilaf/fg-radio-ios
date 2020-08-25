@@ -82,12 +82,34 @@ struct PlayerView: View {
                     .frame(height: 40)
                     .padding(.horizontal)
                     .padding(.top, 10)
-                                    
-                self.playerButton
-                    .padding(.top, 10)
+                 
+                HStack {
+                    VStack {
+                        Image("phone-call")
+                        Text("Позвонить")
+                            .foregroundColor(self.model.trackTitle.sublitleColor)
+                    }
+                    .padding(.leading, 10)
+                    .onTapGesture {
+                        self.model.callStudio()
+                    }
+                    
+                    Spacer()
+                    
+                    VStack {
+                        self.playerButton
+                            .padding(.top, 10)
+                        
+                        MusicIndicator(state: self.$model.indicatorState)
+                            .frame(width: 24, height: 24)
+                    }
+                    
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                }
                 
-                MusicIndicator(state: self.$model.indicatorState)
-                    .frame(width: 24, height: 24)
+                
             }
             
             Spacer()

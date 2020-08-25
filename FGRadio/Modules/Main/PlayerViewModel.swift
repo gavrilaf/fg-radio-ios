@@ -32,8 +32,6 @@ final class PlayerViewModel: ObservableObject {
             player.$status.sink { [weak self] (status) in
                 guard let self = self else { return }
                 
-                print("model status: \(status)")
-                
                 switch status {
                 case .starting:
                     self.isButtonEnabled = false
@@ -113,6 +111,12 @@ final class PlayerViewModel: ObservableObject {
         }
         
         UIApplication.shared.open(url)
+    }
+    
+    func callStudio() {
+        if let phone = URL(string: "tel://\(Config.config.studioPhone)") {
+            UIApplication.shared.open(phone)
+        }
     }
         
     @Published var indicatorState: MusicIndicator.AudioState = .pause

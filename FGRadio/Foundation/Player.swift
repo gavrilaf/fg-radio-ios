@@ -52,8 +52,6 @@ final class Player: NSObject, ObservableObject {
             player.observe(\.timeControlStatus) { [weak self] _, _ in
                 guard let self = self else { return }
                 
-                print("status: \(self.player.timeControlStatus.rawValue)")
-                
                 switch self.player.timeControlStatus {
                 case .waitingToPlayAtSpecifiedRate:
                     self.status = .preparingToPlay

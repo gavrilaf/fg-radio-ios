@@ -72,6 +72,10 @@ final class Config {
     @RemoteConfigURLWrapper("site_url", defaultValue: "https://firstgear.ua/")
     var siteUrl: URL
     
+    var studioPhone: String { // TODO: Move to the remote config
+        return "0671285588"
+    }
+    
     init() {}
     
     func fetch(completion: @escaping () -> Void) {
