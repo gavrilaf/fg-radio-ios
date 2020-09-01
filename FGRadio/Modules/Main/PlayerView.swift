@@ -74,44 +74,44 @@ struct PlayerView: View {
             .frame(height: 90)
             .padding(.top, 10)
             
-            if self.model.buttonState == .preparing {
-                Spacer()
-                ActivityIndicator(isAnimating: .constant(true), style: .large, color: .gray)
-            } else {
-                VolumeSlider()
-                    .frame(height: 40)
-                    .padding(.horizontal)
-                    .padding(.top, 10)
-                 
-                HStack {
-                    VStack {
-                        Image("phone-call")
-                        Text("Позвонить")
-                            .foregroundColor(self.model.trackTitle.sublitleColor)
-                    }
-                    .padding(.leading, 10)
-                    .onTapGesture {
-                        self.model.callStudio()
-                    }
-                    
-                    Spacer()
-                    
-                    VStack {
-                        self.playerButton
-                            .padding(.top, 10)
-                        
-                        MusicIndicator(state: self.$model.indicatorState)
-                            .frame(width: 24, height: 24)
-                    }
-                    
-                    Spacer()
-                    Spacer()
-                    Spacer()
+            
+            VolumeSlider()
+                .frame(height: 40)
+                .padding(.horizontal)
+                .padding(.top, 10)
+            
+            HStack(alignment: .center) {
+                VStack {
+                    Image("phone-call")
+                    Text("Позвонить")
+                        .foregroundColor(Color.secondaryText)
+                }
+                .padding(.leading, 10)
+                .onTapGesture {
+                    self.model.callStudio()
                 }
                 
+                Spacer()
                 
+                VStack {
+                    if self.model.buttonState == .preparing {
+                        ActivityIndicator(isAnimating: .constant(true), style: .large, color: .gray)
+                    } else {
+                        VStack {
+                            self.playerButton
+                                .padding(.top, 10)
+                            
+                            MusicIndicator(state: self.$model.indicatorState)
+                                .frame(width: 24, height: 24)
+                        }
+                    }
+                }.frame(width: 100, height: 100)
+                
+                Spacer()
+                Spacer()
+                Spacer()
             }
-            
+
             Spacer()
         }
         .padding(.top, 7)
