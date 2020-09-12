@@ -21,7 +21,7 @@ struct RemoteConfigStringWrapper {
 
     var wrappedValue: String {
         get {
-            let value = Config.config.remote.configValue(forKey: key)
+            let value = Config.shared.remote.configValue(forKey: key)
             return value.stringValue ?? defaultValue
         }
     }
@@ -39,7 +39,7 @@ struct RemoteConfigURLWrapper {
 
     var wrappedValue: URL {
         get {
-            let value = Config.config.remote.configValue(forKey: key)
+            let value = Config.shared.remote.configValue(forKey: key)
             guard let s = value.stringValue, let url = URL(string: s) else {
                 return defaultValue
             }
@@ -52,7 +52,10 @@ struct RemoteConfigURLWrapper {
 // MARK:- Config
 final class Config {
     
-    static let config = Config()
+    static let shared = Config()
+    
+    @RemoteConfigStringWrapper("config_version", defaultValue: "1.0.local")
+    var version: String
     
     @RemoteConfigURLWrapper("stream_url", defaultValue: "https://radio.firstgear.ua/live")
     var streamUrl: URL
@@ -72,9 +75,11 @@ final class Config {
     @RemoteConfigURLWrapper("site_url", defaultValue: "https://firstgear.ua/")
     var siteUrl: URL
     
-    var studioPhone: String { // TODO: Move to the remote config
-        return "0671285588"
-    }
+    @RemoteConfigURLWrapper("studio_phone_number", defaultValue: "tel://0671285588")
+    var studioPhone: URL
+    
+    @RemoteConfigURLWrapper("tg_link", defaultValue: "https://t.me/fg_radio")
+    var tgLink: URL
     
     init() {}
     

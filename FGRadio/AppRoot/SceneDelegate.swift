@@ -15,9 +15,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        Config.config.fetch {
+        Config.shared.fetch {
             DispatchQueue.main.async {
-                self.player.start(url: Config.config.streamUrl)
+                self.player.start(url: Config.shared.streamUrl)
             }
         }
         

@@ -84,7 +84,7 @@ final class PlayerViewModel: ObservableObject {
     func playTapped() {
         switch player.status {
         case .error:
-            player.start(url: Config.config.streamUrl)
+            player.start(url: Config.shared.streamUrl)
             player.play()
         case .playing:
             player.pause()
@@ -97,25 +97,30 @@ final class PlayerViewModel: ObservableObject {
         let url: URL
         switch type {
         case .instagram:
-            url = Config.config.intstagramUrl
+            url = Config.shared.intstagramUrl
         case .fb:
-            if UIApplication.shared.canOpenURL(Config.config.fbAppUrl) {
-                url = Config.config.fbAppUrl
+            if UIApplication.shared.canOpenURL(Config.shared.fbAppUrl) {
+                url = Config.shared.fbAppUrl
             } else {
-                url = Config.config.fbUrl
+                url = Config.shared.fbUrl
             }
         case .youTube:
-            url = Config.config.youtubeUrl
+            url = Config.shared.youtubeUrl
         case .site:
-            url = Config.config.siteUrl
+            url = Config.shared.siteUrl
         }
         
         UIApplication.shared.open(url)
     }
     
     func callStudio() {
-        if let phone = URL(string: "tel://\(Config.config.studioPhone)") {
-            UIApplication.shared.open(phone)
+        UIApplication.shared.open(Config.shared.studioPhone)
+    }
+    
+    func chatStudio() {
+        let tgUrl = Config.shared.tgLink
+        if UIApplication.shared.canOpenURL(tgUrl) {
+            UIApplication.shared.open(tgUrl)
         }
     }
         

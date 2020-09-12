@@ -23,6 +23,7 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fb</string>
+		<string>viber</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

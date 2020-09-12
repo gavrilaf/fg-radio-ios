@@ -40,7 +40,7 @@ struct PlayerView: View {
     var content: some View {
         VStack {
             self.links
-                .padding(.bottom, 42)
+                .padding(.bottom, 22)
             
             Text("FIRSTGEAR")
                 .foregroundColor(Color.white)
@@ -54,8 +54,9 @@ struct PlayerView: View {
             
             if model.showError {
                 Text("Не удалось загрузить стрим. Подождите немного или позвоните нам.")
-                    .foregroundColor(Color.errorText)
                     .multilineTextAlignment(.center)
+                    .lineLimit(2)
+                    .foregroundColor(Color.errorText)
             }
             
             VStack {
@@ -71,8 +72,8 @@ struct PlayerView: View {
                     .lineLimit(2)
                     .foregroundColor(self.model.trackTitle.sublitleColor)
             }
-            .frame(height: 90)
-            .padding(.top, 10)
+            .frame(height: 85)
+            .padding(.top, 5)
             
             
             VolumeSlider()
@@ -80,13 +81,14 @@ struct PlayerView: View {
                 .padding(.horizontal)
                 .padding(.top, 10)
             
+            Spacer()
+            
             HStack(alignment: .center) {
                 VStack {
                     Image("phone-call")
                     Text("Позвонить")
                         .foregroundColor(Color.secondaryText)
                 }
-                .padding(.leading, 10)
                 .onTapGesture {
                     self.model.callStudio()
                 }
@@ -108,14 +110,21 @@ struct PlayerView: View {
                 }.frame(width: 100, height: 100)
                 
                 Spacer()
-                Spacer()
-                Spacer()
+                
+                VStack {
+                    Image("chat-dark")
+                    Text("Написать")
+                        .foregroundColor(Color.secondaryText)
+                }
+                .onTapGesture {
+                    self.model.chatStudio()
+                }
             }
 
             Spacer()
         }
-        .padding(.top, 7)
-        .padding(.horizontal, 24)
+        .padding(.top, 15)
+        .padding(.horizontal, 12)
     }
     
     var body: some View {
