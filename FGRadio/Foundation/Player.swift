@@ -20,23 +20,20 @@ final class Player: NSObject, ObservableObject {
         
     @Published private(set) var status: Status = .starting
     
-    func start(url: URL) {
+    override init() {
         do {
             let audioSession = AVAudioSession.sharedInstance()
-            
             try audioSession.setCategory(AVAudioSession.Category.playback)
             
-            let playerItem = AVPlayerItem(url: url)
-            player = AVPlayer(playerItem: playerItem)
+            player = AVPlayer()
             
-            let metadataOutput = AVPlayerItemMetadataOutput(identifiers: nil)
-            metadataOutput.setDelegate(self, queue: DispatchQueue.main)
+            super.init()
             
-            player.currentItem?.add(metadataOutput)
-            
-            player.observe(\.status) { [weak self] _, _ in
+            player.observe(\.status) { [weak self] _, value in
                 guard let self = self else { return }
                                 
+                print("player status: \(value)")
+                
                 switch self.player.status {
                 case .unknown:
                     self.status = .starting
@@ -52,6 +49,8 @@ final class Player: NSObject, ObservableObject {
             player.observe(\.timeControlStatus) { [weak self] _, _ in
                 guard let self = self else { return }
                 
+                print("player observer timecontrol status: \(self.player.timeControlStatus.rawValue), \(String(describing: self.player.error))")
+                
                 switch self.player.timeControlStatus {
                 case .waitingToPlayAtSpecifiedRate:
                     self.status = .preparingToPlay
@@ -65,12 +64,65 @@ final class Player: NSObject, ObservableObject {
             }.store(in: &observationsBag)
                         
             setupRemoteTransportControls()
+            
+            status = .readyToPlay
         } catch let err {
             fatalError("AV session error \(err)")
         }
     }
     
-    func setupRemoteTransportControls() {
+    func start(autoplay: Bool) {
+        setupPlayerItem()
+        if autoplay {
+            play()
+        }
+    }
+    
+    func play() {
+        if recreatePlayerItem {
+            setupPlayerItem()
+        }
+        
+        player.play()
+        
+        self.recreatePlayerItem = true
+        
+        checkIsPlaying?.cancel()
+        checkIsPlaying = DispatchWorkItem { [weak self] in
+            guard let self = self else { return }
+            
+            if self.player.timeControlStatus != .playing {
+                self.status = .error
+            }
+        }
+        
+        // If radio won't start playing after 5 seconds, show an error
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: self.checkIsPlaying!)
+    }
+    
+    func pause() {
+        recreatePlayerItem = false
+        checkIsPlaying?.cancel()
+        player.pause()
+    }
+    
+    // MARK:- private
+    
+    private func setupPlayerItem() {
+        print("setupPlayerItem")
+        
+        let playerItem = AVPlayerItem(url: Config.shared.streamUrl)
+        
+        let metadataOutput = AVPlayerItemMetadataOutput(identifiers: nil)
+        metadataOutput.setDelegate(self, queue: DispatchQueue.main)
+        playerItem.add(metadataOutput)
+        
+        player.replaceCurrentItem(with: playerItem)
+        
+        self.recreatePlayerItem = false
+    }
+    
+    private func setupRemoteTransportControls() {
         // Get the shared MPRemoteCommandCenter
         let commandCenter = MPRemoteCommandCenter.shared()
 
@@ -93,7 +145,7 @@ final class Player: NSObject, ObservableObject {
         }
     }
     
-    func setupNowPlaying() {
+    private func setupNowPlaying() {
         var nowPlayingInfo = [String : Any]()
         
         nowPlayingInfo[MPMediaItemPropertyArtist] = trackTitle.title
@@ -107,38 +159,18 @@ final class Player: NSObject, ObservableObject {
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
     }
     
-    func play() {
-        player.play()
-        
-        self.checkIsPlaying = DispatchWorkItem { [weak self] in
-            guard let self = self else { return }
-            
-            if self.player.timeControlStatus != .playing {
-                self.status = .error
-            }
-        }
-        
-        // If radio won't start playing after 3 seconds, show an error
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: self.checkIsPlaying!)
-    }
-    
-    func pause() {
-        self.checkIsPlaying?.cancel()
-        
-        player.pause()
-    }
-    
-    // MARK:- private
     private var player: AVPlayer!
     private var checkIsPlaying: DispatchWorkItem?
     private var observationsBag = ObservationsBag()
+    
+    private var recreatePlayerItem = false
 }
 
 extension Player: AVPlayerItemMetadataOutputPushDelegate {
     func metadataOutput(_ output: AVPlayerItemMetadataOutput,
                         didOutputTimedMetadataGroups groups: [AVTimedMetadataGroup],
                         from track: AVPlayerItemTrack?) {
-        
+        print("mediaOutput....")
         groups.forEach { (group) in
             group.items.forEach { (item) in
                 guard let id = item.identifier, let value = item.stringValue else { return }
@@ -146,9 +178,11 @@ extension Player: AVPlayerItemMetadataOutputPushDelegate {
                 switch id {
                 case AVMetadataIdentifier.icyMetadataStreamTitle:
                     if value.count > 0 {
+                        print("title, old: \(trackTitle), new: \(value)")
                         trackTitle = TrackTitle.makeFrom(streamTitle: value)
                     }
                 default:
+                    print("other value \(id)")
                     break
                 }
             }

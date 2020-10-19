@@ -29,51 +29,9 @@ final class PlayerViewModel: ObservableObject {
         self.player = player
 
         cancelBag.collect {
-            player.$status.sink { [weak self] (status) in
-                guard let self = self else { return }
-                
-                switch status {
-                case .starting:
-                    self.isButtonEnabled = false
-                    self.showError = false
-                    self.buttonState = ButtonState.preparing
-                    self.indicatorState = .pause
-                
-                case .preparingToPlay:
-                    if self.alreadyPlayed {
-                        self.isButtonEnabled = false
-                        self.showError = false
-                        self.buttonState = ButtonState.play
-                        self.indicatorState = .pause
-                    } else {
-                        self.buttonState = ButtonState.preparing
-                    }
-                
-                case .error:
-                    self.isButtonEnabled = true
-                    self.showError = true
-                    self.buttonState = ButtonState.play
-                    self.indicatorState = .pause
-                
-                case .readyToPlay:
-                    if self.alreadyShowed {
-                        self.isButtonEnabled = true
-                        self.showError = false
-                        self.buttonState = ButtonState.play
-                        self.indicatorState = .pause
-                    } else {
-                        self.alreadyShowed = true
-                        self.playTapped()
-                    }
-                    
-                case .playing:
-                    self.alreadyPlayed = true
-                    self.isButtonEnabled = true
-                    self.showError = false
-                    self.buttonState = ButtonState.pause
-                    self.indicatorState = .play
-                }
-            }
+            player.$status
+                .debounce(for: 0.2, scheduler: RunLoop.main)
+                .sink { [weak self] (status) in self?.update(status: status) }
             
             player.$trackTitle.sink { [weak self] in
                 self?.trackTitle = $0
@@ -83,9 +41,6 @@ final class PlayerViewModel: ObservableObject {
             
     func playTapped() {
         switch player.status {
-        case .error:
-            player.start(url: Config.shared.streamUrl)
-            player.play()
         case .playing:
             player.pause()
         default:
@@ -142,9 +97,40 @@ final class PlayerViewModel: ObservableObject {
     }
     
     // MARK:- private
-    
-    private var alreadyShowed = false
-    private var alreadyPlayed = false
+    private func update(status: Player.Status) {
+        switch status {
+        case .starting:
+            self.indicatorState = .pause
+            self.isButtonEnabled = false
+            self.showError = false
+            self.buttonState = ButtonState.preparing
+        
+        case .preparingToPlay:
+            self.indicatorState = .pause
+            self.isButtonEnabled = false
+            self.showError = false
+            self.buttonState = ButtonState.preparing
+        
+        case .error:
+            self.indicatorState = .pause
+            self.isButtonEnabled = true
+            self.showError = true
+            self.buttonState = ButtonState.play
+        
+        case .readyToPlay:
+            self.indicatorState = .pause
+            self.isButtonEnabled = true
+            self.showError = false
+            self.buttonState = ButtonState.play
+
+        case .playing:
+            self.indicatorState = .play
+            self.isButtonEnabled = true
+            self.showError = false
+            self.buttonState = ButtonState.pause
+        }
+        print("viewState: button \(self.buttonState) indicator \(self.indicatorState)")
+    }
     
     private let player: Player
     private var cancelBag = CancelBag()

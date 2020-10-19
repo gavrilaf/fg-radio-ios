@@ -10,14 +10,16 @@ import UIKit
 import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
-    var player = Player()
+    
+    let player = Player()
+    
+    var reachability: ConnectionObserver?
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         Config.shared.fetch {
             DispatchQueue.main.async {
-                self.player.start(url: Config.shared.streamUrl)
+                self.player.start(autoplay: true)
             }
         }
         
@@ -30,6 +32,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.rootViewController = UIHostingController(rootView: mainView)
             self.window = window
             window.makeKeyAndVisible()
+        }
+        
+        do {
+            reachability = try ConnectionObserver(player: player)
+        } catch let err {
+            print("Reachability error: \(err)")
         }
     }
 
