@@ -25,9 +25,10 @@ final class PlayerViewModel: ObservableObject {
         case pause
     }
     
-    init(player: Player) {
+    init(player: Player, reachability: ConnectionObserver) {
         self.player = player
-
+        self.reachability = reachability
+        
         cancelBag.collect {
             player.$status
                 .debounce(for: 0.2, scheduler: RunLoop.main)
@@ -35,6 +36,10 @@ final class PlayerViewModel: ObservableObject {
             
             player.$trackTitle.sink { [weak self] in
                 self?.trackTitle = $0
+            }
+            
+            reachability.$isReachable.sink { [weak self] (reachable) in
+                self?.showNoConnection = !reachable
             }
         }
     }
@@ -84,6 +89,7 @@ final class PlayerViewModel: ObservableObject {
     @Published private(set) var isButtonEnabled = false
     @Published private(set) var buttonState = ButtonState.preparing
     @Published private(set) var showError = false
+    @Published private(set) var showNoConnection = false
     
     var buttonImage: String {
         switch buttonState {
@@ -133,5 +139,7 @@ final class PlayerViewModel: ObservableObject {
     }
     
     private let player: Player
+    private let reachability: ConnectionObserver
+    
     private var cancelBag = CancelBag()
 }

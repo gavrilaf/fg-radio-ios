@@ -79,7 +79,7 @@ final class Player: NSObject, ObservableObject {
     }
     
     func play() {
-        if recreatePlayerItem {
+        if recreatePlayerItem || player.currentItem == nil {
             setupPlayerItem()
         }
         
@@ -96,14 +96,18 @@ final class Player: NSObject, ObservableObject {
             }
         }
         
-        // If radio won't start playing after 5 seconds, show an error
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: self.checkIsPlaying!)
+        // If radio won't start playing after 7 seconds, show an error
+        DispatchQueue.main.asyncAfter(deadline: .now() + 7, execute: self.checkIsPlaying!)
     }
     
     func pause() {
         recreatePlayerItem = false
         checkIsPlaying?.cancel()
         player.pause()
+    }
+    
+    func onLostConnection() {
+        recreatePlayerItem = true
     }
     
     // MARK:- private

@@ -138,7 +138,10 @@ struct PlayerView: View {
 }
 
 struct PlayerView_Previews: PreviewProvider {
-    static let model = PlayerViewModel(player: Player())
+    static let player = Player()
+    static let reachability = ConnectionObserver(player: player)
+    
+    static let model = PlayerViewModel(player: player, reachability: reachability)
     
     static var previews: some View {
         PlayerView(model: model)

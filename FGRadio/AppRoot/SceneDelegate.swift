@@ -11,20 +11,14 @@ import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
-    let player = Player()
+    private lazy var player: Player = { Player() }()
+    private lazy var reachability: ConnectionObserver = { ConnectionObserver(player: player) }()
     
-    var reachability: ConnectionObserver?
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        Config.shared.fetch {
-            DispatchQueue.main.async {
-                self.player.start(autoplay: true)
-            }
-        }
         
-        // Create the SwiftUI view that provides the window contents.
-        let mainView = PlayerView(model: PlayerViewModel(player: player))
+        let mainView = PlayerView(model: PlayerViewModel(player: player, reachability: reachability))
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
@@ -34,10 +28,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.makeKeyAndVisible()
         }
         
-        do {
-            reachability = try ConnectionObserver(player: player)
-        } catch let err {
-            print("Reachability error: \(err)")
+        Config.shared.fetch {
+            if self.reachability.isReachable {
+                DispatchQueue.main.async {
+                     self.player.start(autoplay: true)
+                }
+            }
         }
     }
 

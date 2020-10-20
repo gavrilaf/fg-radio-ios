@@ -8,17 +8,34 @@
 
 import Foundation
 import Reachability
+import Combine
 
 final class ConnectionObserver {
-    init(player: Player) throws {
+    init(player: Player) {
         self.player = player
-        self.reachability = try Reachability()
+        
+        do {
+            self.reachability = try Reachability()
             
-        reachability.whenReachable = { [weak self] _ in self?.onRestoreConnection() }
-        reachability.whenUnreachable = { [weak self] _ in self?.onLostConnection() }
+            isReachable = reachability?.connection != .unavailable
             
-        try reachability.startNotifier()
+            reachability?.whenReachable = { [weak self] _ in self?.onRestoreConnection() }
+            reachability?.whenUnreachable = { [weak self] _ in self?.onLostConnection() }
+                
+            try reachability?.startNotifier()
+            
+            if !isReachable {
+                onLostConnection()
+                restorePlaying = true
+            }
+        } catch let err {
+            print("failed to create reachability, \(err)")
+        }
     }
+    
+    @Published private(set) var isReachable: Bool = true
+    
+    // MARK:- private
     
     private func onRestoreConnection() {
         if restorePlaying {
@@ -31,9 +48,11 @@ final class ConnectionObserver {
         if player.status == .playing {
             restorePlaying = true
         }
+        
+        player.onLostConnection()
     }
     
-    private let reachability: Reachability
+    private var reachability: Reachability? = nil
     private let player: Player
     
     private var restorePlaying = false
