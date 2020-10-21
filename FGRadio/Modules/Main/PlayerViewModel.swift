@@ -37,7 +37,6 @@ final class PlayerViewModel: ObservableObject {
                     self?.update(status: status)
                 }
             
-            
             player.$trackTitle.sink { [weak self] in
                 self?.trackTitle = $0
             }
@@ -45,7 +44,6 @@ final class PlayerViewModel: ObservableObject {
             reachability.$isReachable
                 .debounce(for: 0.2, scheduler: RunLoop.main)
                 .sink { [weak self] (reachable) in
-                    print("reachability is reachable")
                     self?.showBanner = !reachable
                 }
         }
@@ -96,8 +94,7 @@ final class PlayerViewModel: ObservableObject {
     @Published private(set) var buttonState = ButtonState.preparing
     @Published private(set) var playingAnimation = false
     @Published private(set) var showError = false
-    @Published private(set)var showBanner = false
-    
+    @Published private(set) var showBanner = false
     
     
     var buttonImage: String {
@@ -144,7 +141,6 @@ final class PlayerViewModel: ObservableObject {
             self.showError = false
             self.buttonState = ButtonState.pause
         }
-        print("viewState: button \(self.buttonState) indicator \(self.playingAnimation)")
     }
     
     private let player: Player

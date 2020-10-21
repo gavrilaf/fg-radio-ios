@@ -29,38 +29,12 @@ final class Player: NSObject, ObservableObject {
             
             super.init()
             
-            player.observe(\.status) { [weak self] _, value in
-                guard let self = self else { return }
-                                
-                print("player status: \(value)")
-                
-                switch self.player.status {
-                case .unknown:
-                    self.status = .starting
-                case .failed:
-                    self.status = .error
-                case .readyToPlay:
-                    self.status = .readyToPlay
-                @unknown default:
-                    fatalError("update application")
-                }
+            player.observe(\.status) { [weak self] _, _ in
+                self?.playerStatusDidUpdate()
             }.store(in: &observationsBag)
             
             player.observe(\.timeControlStatus) { [weak self] _, _ in
-                guard let self = self else { return }
-                
-                print("player observer timecontrol status: \(self.player.timeControlStatus.rawValue), \(String(describing: self.player.error))")
-                
-                switch self.player.timeControlStatus {
-                case .waitingToPlayAtSpecifiedRate:
-                    self.status = .preparingToPlay
-                case .paused:
-                    self.status = .readyToPlay
-                case .playing:
-                    self.status = .playing
-                @unknown default:
-                    fatalError("update application")
-                }
+                self?.timeControlStatusDidUpdate()
             }.store(in: &observationsBag)
                         
             setupRemoteTransportControls()
@@ -84,30 +58,18 @@ final class Player: NSObject, ObservableObject {
         }
         
         player.play()
-        
-        self.recreatePlayerItem = true
-        
-        checkIsPlaying?.cancel()
-        checkIsPlaying = DispatchWorkItem { [weak self] in
-            guard let self = self else { return }
-            
-            if self.player.timeControlStatus != .playing {
-                self.status = .error
-            }
-        }
-        
-        // If radio won't start playing after 7 seconds, show an error
-        DispatchQueue.main.asyncAfter(deadline: .now() + 7, execute: self.checkIsPlaying!)
+        checkErrorAndRetry()
     }
     
     func pause() {
         recreatePlayerItem = false
-        checkIsPlaying?.cancel()
+        cancelCheckError()
         player.pause()
     }
     
     func onLostConnection() {
         recreatePlayerItem = true
+        cancelCheckError()
     }
     
     // MARK:- private
@@ -122,7 +84,6 @@ final class Player: NSObject, ObservableObject {
         playerItem.add(metadataOutput)
         
         player.replaceCurrentItem(with: playerItem)
-        
         self.recreatePlayerItem = false
     }
     
@@ -163,11 +124,72 @@ final class Player: NSObject, ObservableObject {
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
     }
     
+    private func checkErrorAndRetry() {
+        checkIsPlaying = DispatchWorkItem { [weak self] in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                
+                if self.player.timeControlStatus != .playing {
+                    if self.retryCount >= 2 {
+                        self.status = .error
+                        self.retryCount = 0
+                    } else {
+                        self.retryCount += 1
+                        self.recreatePlayerItem = true
+                        self.play()
+                    }
+                }
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: self.checkIsPlaying!)
+    }
+    
+    private func cancelCheckError() {
+        checkIsPlaying?.cancel()
+        checkIsPlaying = nil
+    }
+    
+    private func playerStatusDidUpdate() {
+        switch player.status {
+        case .unknown:
+            status = .starting
+        case .failed:
+            status = .error
+        case .readyToPlay:
+            status = .readyToPlay
+        @unknown default:
+            fatalError("update application")
+        }
+    }
+    
+    private func timeControlStatusDidUpdate() {
+        switch player.timeControlStatus {
+        case .waitingToPlayAtSpecifiedRate:
+            status = .preparingToPlay
+        case .paused:
+            status = .readyToPlay
+        case .playing:
+            status = .playing
+        @unknown default:
+            fatalError("update application")
+        }
+        
+        if status == .playing {
+            self.cancelCheckError()
+            self.recreatePlayerItem = true
+            self.retryCount = 0
+        }
+    }
+    
+    // MARK:- private state
+    
     private var player: AVPlayer!
     private var checkIsPlaying: DispatchWorkItem?
     private var observationsBag = ObservationsBag()
     
     private var recreatePlayerItem = false
+    private var retryCount = 0
 }
 
 extension Player: AVPlayerItemMetadataOutputPushDelegate {
