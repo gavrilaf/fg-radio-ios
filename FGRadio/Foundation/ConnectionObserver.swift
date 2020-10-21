@@ -38,6 +38,8 @@ final class ConnectionObserver {
     // MARK:- private
     
     private func onRestoreConnection() {
+        isReachable = true
+        
         if restorePlaying {
             player.play()
             restorePlaying = false
@@ -45,6 +47,8 @@ final class ConnectionObserver {
     }
     
     private func onLostConnection() {
+        isReachable = false
+        
         if player.status == .playing {
             restorePlaying = true
         }

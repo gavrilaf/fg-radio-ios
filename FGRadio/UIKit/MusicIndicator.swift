@@ -9,23 +9,30 @@
 import SwiftUI
 
 struct MusicIndicator: View {
-    enum AudioState {
-        case play
-        case pause
-    }
     
-    @Binding var state: AudioState
-
-    var body: some View {
+    var animate: Bool = false
+    
+    @State private var animateInternal = false
+    
+    var indicator: some View {
         GeometryReader { reader in
             HStack(alignment: .center, spacing: 1) {
                 ForEach(self.animationValues) { value in
-                    LineView(maxValue:
-                        self.state == .play ? value.maxValue : self.minimalValue)
+                    LineView(maxValue: animateInternal ? value.maxValue : self.minimalValue)
                         .stroke(self.lineColor, lineWidth: reader.size.width / 8)
-                        .animation(self.state == .play ? value.animation.repeatForever() : Animation.easeOut(duration: 0.3))
+                        .animation(animateInternal ? value.animation.repeatForever() : Animation.easeOut(duration: 0.3))
                 }
+            }.onAppear {
+                self.animateInternal = self.animate
             }
+        }
+    }
+
+    var body: some View {
+        if animate {
+            self.indicator
+        } else {
+            self.indicator
         }
     }
     

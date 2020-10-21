@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 import UIKit
 
 final class PlayerViewModel: ObservableObject {
@@ -32,15 +33,21 @@ final class PlayerViewModel: ObservableObject {
         cancelBag.collect {
             player.$status
                 .debounce(for: 0.2, scheduler: RunLoop.main)
-                .sink { [weak self] (status) in self?.update(status: status) }
+                .sink { [weak self] (status) in
+                    self?.update(status: status)
+                }
+            
             
             player.$trackTitle.sink { [weak self] in
                 self?.trackTitle = $0
             }
             
-            reachability.$isReachable.sink { [weak self] (reachable) in
-                self?.showNoConnection = !reachable
-            }
+            reachability.$isReachable
+                .debounce(for: 0.2, scheduler: RunLoop.main)
+                .sink { [weak self] (reachable) in
+                    print("reachability is reachable")
+                    self?.showBanner = !reachable
+                }
         }
     }
             
@@ -84,12 +91,14 @@ final class PlayerViewModel: ObservableObject {
         }
     }
         
-    @Published var indicatorState: MusicIndicator.AudioState = .pause
     @Published private(set) var trackTitle = TrackTitle.makeEmpty()
     @Published private(set) var isButtonEnabled = false
     @Published private(set) var buttonState = ButtonState.preparing
+    @Published private(set) var playingAnimation = false
     @Published private(set) var showError = false
-    @Published private(set) var showNoConnection = false
+    @Published private(set)var showBanner = false
+    
+    
     
     var buttonImage: String {
         switch buttonState {
@@ -106,36 +115,36 @@ final class PlayerViewModel: ObservableObject {
     private func update(status: Player.Status) {
         switch status {
         case .starting:
-            self.indicatorState = .pause
+            self.playingAnimation = false
             self.isButtonEnabled = false
             self.showError = false
             self.buttonState = ButtonState.preparing
         
         case .preparingToPlay:
-            self.indicatorState = .pause
+            self.playingAnimation = false
             self.isButtonEnabled = false
             self.showError = false
             self.buttonState = ButtonState.preparing
         
         case .error:
-            self.indicatorState = .pause
+            self.playingAnimation = false
             self.isButtonEnabled = true
             self.showError = true
             self.buttonState = ButtonState.play
         
         case .readyToPlay:
-            self.indicatorState = .pause
+            self.playingAnimation = false
             self.isButtonEnabled = true
             self.showError = false
             self.buttonState = ButtonState.play
 
         case .playing:
-            self.indicatorState = .play
+            self.playingAnimation = true
             self.isButtonEnabled = true
             self.showError = false
             self.buttonState = ButtonState.pause
         }
-        print("viewState: button \(self.buttonState) indicator \(self.indicatorState)")
+        print("viewState: button \(self.buttonState) indicator \(self.playingAnimation)")
     }
     
     private let player: Player

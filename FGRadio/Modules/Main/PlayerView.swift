@@ -103,7 +103,7 @@ struct PlayerView: View {
                             self.playerButton
                                 .padding(.top, 10)
                             
-                            MusicIndicator(state: self.$model.indicatorState)
+                            MusicIndicator(animate: self.model.playingAnimation)
                                 .frame(width: 24, height: 24)
                         }
                     }
@@ -131,7 +131,9 @@ struct PlayerView: View {
         ZStack {
             Color.mainBackground.edgesIgnoringSafeArea(.vertical)
             self.content
-        }.sheet(isPresented: $showAbout) {
+        }
+        .banner(title: "Нет интернет соединения", show: self.model.showBanner)
+        .sheet(isPresented: $showAbout) {
             AboutView(isVisible: self.$showAbout)
         }
     }
