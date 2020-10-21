@@ -25,7 +25,7 @@ struct AboutView: View {
                 Button(action: {
                     self.isVisible = false
                 }) {
-                    Image("close-dark")
+                    Image(systemName: "xmark")
                 }
                 .buttonStyle(PlainButtonStyle())
             }
@@ -33,7 +33,7 @@ struct AboutView: View {
             HStack {
                 Spacer()
                 Text("О нас")
-                    .foregroundColor(.white)
+                    .foregroundColor(Color.primaryText)
                     .font(.title)
                 Spacer()
             }
@@ -44,7 +44,7 @@ struct AboutView: View {
                         .foregroundColor(Color.secondaryText)
                         .bold()
                     Text("Александр Федченко")
-                        .foregroundColor(.white)
+                        .foregroundColor(Color.primaryText)
                         .bold()
                 }
                 
@@ -53,7 +53,7 @@ struct AboutView: View {
                         .foregroundColor(Color.secondaryText)
                         .bold()
                     Text("Евгений Федченко")
-                        .foregroundColor(.white)
+                        .foregroundColor(Color.primaryText)
                         .bold()
                 }
                 
@@ -62,23 +62,23 @@ struct AboutView: View {
                         .foregroundColor(Color.secondaryText)
                         .bold()
                     Text("Евгений Белик")
-                        .foregroundColor(.white)
+                        .foregroundColor(Color.primaryText)
                         .bold()
                 }
             }
             
             VStack(alignment: .leading) {
                 Text("First Gear radio")
-                    .foregroundColor(Color.white)
+                    .foregroundColor(Color.primaryText)
                     .bold()
                 Text(aboutText)
-                    .foregroundColor(.white)
+                    .foregroundColor(Color.primaryText)
                     .multilineTextAlignment(.leading)
                     .lineLimit(nil)
             }.padding(.vertical)
             
             Text("Контактный номер для рекламодателей и партнеров:")
-                .foregroundColor(.white)
+                .foregroundColor(Color.primaryText)
                 .multilineTextAlignment(.leading)
             
             Button("067 128-55-88") {

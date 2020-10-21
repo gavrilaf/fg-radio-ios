@@ -75,8 +75,6 @@ final class Player: NSObject, ObservableObject {
     // MARK:- private
     
     private func setupPlayerItem() {
-        print("setupPlayerItem")
-        
         let playerItem = AVPlayerItem(url: Config.shared.streamUrl)
         
         let metadataOutput = AVPlayerItemMetadataOutput(identifiers: nil)
@@ -136,7 +134,10 @@ final class Player: NSObject, ObservableObject {
                     } else {
                         self.retryCount += 1
                         self.recreatePlayerItem = true
-                        self.play()
+                        
+                        DispatchQueue.main.async {
+                            self.play()
+                        }
                     }
                 }
             }
@@ -196,19 +197,16 @@ extension Player: AVPlayerItemMetadataOutputPushDelegate {
     func metadataOutput(_ output: AVPlayerItemMetadataOutput,
                         didOutputTimedMetadataGroups groups: [AVTimedMetadataGroup],
                         from track: AVPlayerItemTrack?) {
-        print("mediaOutput....")
         groups.forEach { (group) in
             group.items.forEach { (item) in
                 guard let id = item.identifier, let value = item.stringValue else { return }
                 
                 switch id {
                 case AVMetadataIdentifier.icyMetadataStreamTitle:
-                    if value.count > 0 {
-                        print("title, old: \(trackTitle), new: \(value)")
+                    if !value.isEmpty {
                         trackTitle = TrackTitle.makeFrom(streamTitle: value)
                     }
                 default:
-                    print("other value \(id)")
                     break
                 }
             }

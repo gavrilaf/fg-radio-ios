@@ -50,6 +50,8 @@ final class PlayerViewModel: ObservableObject {
     }
             
     func playTapped() {
+        guard reachability.isReachable else { return }
+        
         switch player.status {
         case .playing:
             player.pause()

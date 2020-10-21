@@ -38,22 +38,28 @@ final class ConnectionObserver {
     // MARK:- private
     
     private func onRestoreConnection() {
-        isReachable = true
-        
-        if restorePlaying {
-            player.play()
-            restorePlaying = false
+        if reachability?.connection != Reachability.Connection.unavailable {
+            isReachable = true
+            
+            if restorePlaying {
+                player.play()
+                restorePlaying = false
+            }
         }
     }
     
     private func onLostConnection() {
-        isReachable = false
-        
-        if player.status == .playing {
-            restorePlaying = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+            if self.reachability?.connection == Reachability.Connection.unavailable {
+                self.isReachable = false
+                
+                if self.player.status == .playing {
+                    self.restorePlaying = true
+                }
+                
+                self.player.onLostConnection()
+            }
         }
-        
-        player.onLostConnection()
     }
     
     private var reachability: Reachability? = nil
