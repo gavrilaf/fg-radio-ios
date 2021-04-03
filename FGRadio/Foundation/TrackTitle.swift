@@ -19,6 +19,9 @@ struct TrackTitle {
         self.subtitle = TrackTitle.trim(subtitle)
     }
     
+    var isTitleEmpty: Bool { title == Const.empty }
+    var isSubtitleEmpty: Bool { subtitle == Const.empty }
+    
     let title: String
     let subtitle: String
     

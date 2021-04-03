@@ -67,14 +67,13 @@ struct PlayerView: View {
                     .foregroundColor(self.model.trackTitle.titleColor)
                 
                 Text(self.model.trackTitle.subtitle)
-                    .font(.system(size: 24))
+                    .font(.system(size: 22))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
                     .foregroundColor(self.model.trackTitle.sublitleColor)
             }
             .frame(height: 85)
             .padding(.top, 5)
-            
             
             VolumeSlider()
                 .frame(height: 40)
