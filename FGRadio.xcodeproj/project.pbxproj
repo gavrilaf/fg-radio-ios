@@ -1,0 +1,733 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		462EAC9024ED167300E3CCD3 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462EAC8F24ED167300E3CCD3 /* AboutView.swift */; };
+		46437E0424BF50D2005E9339 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 46437E0324BF50D2005E9339 /* GoogleService-Info.plist */; };
+		46531754253E0BB700E8E039 /* ConnectionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46531753253E0BB700E8E039 /* ConnectionObserver.swift */; };
+		4653178F253F0B2900E8E039 /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4653178E253F0B2900E8E039 /* Banner.swift */; };
+		469E0933253E0B430074C94A /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 469E0932253E0B430074C94A /* Reachability */; };
+		46A0790C24D30EF500E7C591 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A0790B24D30EF500E7C591 /* ActivityIndicator.swift */; };
+		46A5092F249BE9B600741215 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A5092E249BE9B600741215 /* AppDelegate.swift */; };
+		46A50931249BE9B600741215 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A50930249BE9B600741215 /* SceneDelegate.swift */; };
+		46A50933249BE9B600741215 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A50932249BE9B600741215 /* PlayerView.swift */; };
+		46A50935249BE9B900741215 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46A50934249BE9B900741215 /* Assets.xcassets */; };
+		46A50938249BE9B900741215 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46A50937249BE9B900741215 /* Preview Assets.xcassets */; };
+		46A5093B249BE9B900741215 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46A50939249BE9B900741215 /* LaunchScreen.storyboard */; };
+		46A50946249BE9B900741215 /* FGRadioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A50945249BE9B900741215 /* FGRadioTests.swift */; };
+		46A50951249BED3500741215 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A50950249BED3500741215 /* Player.swift */; };
+		46A50953249C815000741215 /* ObservationsBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A50952249C815000741215 /* ObservationsBag.swift */; };
+		46A9CD25249D0E5800C2B0E8 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A9CD24249D0E5800C2B0E8 /* Config.swift */; };
+		46A9CD28249D493300C2B0E8 /* MusicIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A9CD27249D493300C2B0E8 /* MusicIndicator.swift */; };
+		46A9CD2A249E8BE900C2B0E8 /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A9CD29249E8BE900C2B0E8 /* PlayerViewModel.swift */; };
+		46BCE13724B2483500019CC2 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BCE13624B2483500019CC2 /* Color.swift */; };
+		46BCE13924B251AB00019CC2 /* TrackTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BCE13824B251AB00019CC2 /* TrackTitle.swift */; };
+		46BCE13B24B2581D00019CC2 /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BCE13A24B2581D00019CC2 /* CancelBag.swift */; };
+		46DAE61B24BF54580097F09D /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 46DAE61A24BF54580097F09D /* Podfile */; };
+		46DB1D1D24C8AF56000D007B /* VolumeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DB1D1C24C8AF56000D007B /* VolumeSlider.swift */; };
+		9BAB961FE6305BFCF8AE8FA1 /* Pods_FGRadioTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0926584E1BAF03E98E350C33 /* Pods_FGRadioTests.framework */; };
+		C75E16A900533CED8D11DC3C /* Pods_FGRadio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD6B2A623C3F6129FE24CFCB /* Pods_FGRadio.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		46A50942249BE9B900741215 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46A50923249BE9B600741215 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 46A5092A249BE9B600741215;
+			remoteInfo = FGRadio;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0926584E1BAF03E98E350C33 /* Pods_FGRadioTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FGRadioTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		462EAC8F24ED167300E3CCD3 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		46437E0324BF50D2005E9339 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		46531753253E0BB700E8E039 /* ConnectionObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionObserver.swift; sourceTree = "<group>"; };
+		4653178E253F0B2900E8E039 /* Banner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
+		46A0790B24D30EF500E7C591 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		46A5092B249BE9B600741215 /* FGRadio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FGRadio.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		46A5092E249BE9B600741215 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		46A50930249BE9B600741215 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		46A50932249BE9B600741215 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		46A50934249BE9B900741215 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		46A50937249BE9B900741215 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		46A5093A249BE9B900741215 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		46A5093C249BE9B900741215 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		46A50941249BE9B900741215 /* FGRadioTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FGRadioTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		46A50945249BE9B900741215 /* FGRadioTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FGRadioTests.swift; sourceTree = "<group>"; };
+		46A50947249BE9B900741215 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		46A50950249BED3500741215 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		46A50952249C815000741215 /* ObservationsBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservationsBag.swift; sourceTree = "<group>"; };
+		46A9CD24249D0E5800C2B0E8 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		46A9CD27249D493300C2B0E8 /* MusicIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicIndicator.swift; sourceTree = "<group>"; };
+		46A9CD29249E8BE900C2B0E8 /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
+		46BCE13624B2483500019CC2 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		46BCE13824B251AB00019CC2 /* TrackTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTitle.swift; sourceTree = "<group>"; };
+		46BCE13A24B2581D00019CC2 /* CancelBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelBag.swift; sourceTree = "<group>"; };
+		46DAE61A24BF54580097F09D /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		46DB1D1C24C8AF56000D007B /* VolumeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeSlider.swift; sourceTree = "<group>"; };
+		8764683064D8556CCC8E4645 /* Pods-FGRadioTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FGRadioTests.release.xcconfig"; path = "Target Support Files/Pods-FGRadioTests/Pods-FGRadioTests.release.xcconfig"; sourceTree = "<group>"; };
+		8E5B367B2B56EE6FD0A5FA5E /* Pods-FGRadioTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FGRadioTests.debug.xcconfig"; path = "Target Support Files/Pods-FGRadioTests/Pods-FGRadioTests.debug.xcconfig"; sourceTree = "<group>"; };
+		902812D1299925DD480927E1 /* Pods-FGRadio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FGRadio.release.xcconfig"; path = "Target Support Files/Pods-FGRadio/Pods-FGRadio.release.xcconfig"; sourceTree = "<group>"; };
+		CD6B2A623C3F6129FE24CFCB /* Pods_FGRadio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FGRadio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1C48A6D566D146FEE076614 /* Pods-FGRadio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FGRadio.debug.xcconfig"; path = "Target Support Files/Pods-FGRadio/Pods-FGRadio.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		46A50928249BE9B600741215 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C75E16A900533CED8D11DC3C /* Pods_FGRadio.framework in Frameworks */,
+				469E0933253E0B430074C94A /* Reachability in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		46A5093E249BE9B900741215 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BAB961FE6305BFCF8AE8FA1 /* Pods_FGRadioTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		46A50922249BE9B600741215 = {
+			isa = PBXGroup;
+			children = (
+				46A5092D249BE9B600741215 /* FGRadio */,
+				46A50944249BE9B900741215 /* FGRadioTests */,
+				46A5092C249BE9B600741215 /* Products */,
+				8D6C04F1E032F619FB7F327A /* Pods */,
+				86ED9FA167F669B83B4B957F /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		46A5092C249BE9B600741215 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				46A5092B249BE9B600741215 /* FGRadio.app */,
+				46A50941249BE9B900741215 /* FGRadioTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		46A5092D249BE9B600741215 /* FGRadio */ = {
+			isa = PBXGroup;
+			children = (
+				46A9CD26249D491D00C2B0E8 /* UIKit */,
+				46A50957249C822300741215 /* AppRoot */,
+				46A50956249C820E00741215 /* Modules */,
+				46A50954249C81E800741215 /* Foundation */,
+				46A50934249BE9B900741215 /* Assets.xcassets */,
+				46A50939249BE9B900741215 /* LaunchScreen.storyboard */,
+				46A5093C249BE9B900741215 /* Info.plist */,
+				46437E0324BF50D2005E9339 /* GoogleService-Info.plist */,
+				46DAE61A24BF54580097F09D /* Podfile */,
+				46A50936249BE9B900741215 /* Preview Content */,
+			);
+			path = FGRadio;
+			sourceTree = "<group>";
+		};
+		46A50936249BE9B900741215 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				46A50937249BE9B900741215 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		46A50944249BE9B900741215 /* FGRadioTests */ = {
+			isa = PBXGroup;
+			children = (
+				46A50945249BE9B900741215 /* FGRadioTests.swift */,
+				46A50947249BE9B900741215 /* Info.plist */,
+			);
+			path = FGRadioTests;
+			sourceTree = "<group>";
+		};
+		46A50954249C81E800741215 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				46A9CD24249D0E5800C2B0E8 /* Config.swift */,
+				46A50950249BED3500741215 /* Player.swift */,
+				46BCE13824B251AB00019CC2 /* TrackTitle.swift */,
+				46A50952249C815000741215 /* ObservationsBag.swift */,
+				46BCE13A24B2581D00019CC2 /* CancelBag.swift */,
+				46531753253E0BB700E8E039 /* ConnectionObserver.swift */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		46A50956249C820E00741215 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				46A50958249C823E00741215 /* Main */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		46A50957249C822300741215 /* AppRoot */ = {
+			isa = PBXGroup;
+			children = (
+				46A5092E249BE9B600741215 /* AppDelegate.swift */,
+				46A50930249BE9B600741215 /* SceneDelegate.swift */,
+			);
+			path = AppRoot;
+			sourceTree = "<group>";
+		};
+		46A50958249C823E00741215 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				46A50932249BE9B600741215 /* PlayerView.swift */,
+				46A9CD29249E8BE900C2B0E8 /* PlayerViewModel.swift */,
+				462EAC8F24ED167300E3CCD3 /* AboutView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		46A9CD26249D491D00C2B0E8 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				46A9CD27249D493300C2B0E8 /* MusicIndicator.swift */,
+				46BCE13624B2483500019CC2 /* Color.swift */,
+				46DB1D1C24C8AF56000D007B /* VolumeSlider.swift */,
+				46A0790B24D30EF500E7C591 /* ActivityIndicator.swift */,
+				4653178E253F0B2900E8E039 /* Banner.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		86ED9FA167F669B83B4B957F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CD6B2A623C3F6129FE24CFCB /* Pods_FGRadio.framework */,
+				0926584E1BAF03E98E350C33 /* Pods_FGRadioTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8D6C04F1E032F619FB7F327A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F1C48A6D566D146FEE076614 /* Pods-FGRadio.debug.xcconfig */,
+				902812D1299925DD480927E1 /* Pods-FGRadio.release.xcconfig */,
+				8E5B367B2B56EE6FD0A5FA5E /* Pods-FGRadioTests.debug.xcconfig */,
+				8764683064D8556CCC8E4645 /* Pods-FGRadioTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		46A5092A249BE9B600741215 /* FGRadio */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 46A5094A249BE9B900741215 /* Build configuration list for PBXNativeTarget "FGRadio" */;
+			buildPhases = (
+				5D1C9309254D8F50CE291C8E /* [CP] Check Pods Manifest.lock */,
+				46A50927249BE9B600741215 /* Sources */,
+				46A50928249BE9B600741215 /* Frameworks */,
+				46A50929249BE9B600741215 /* Resources */,
+				57E972D06E3051E180FEA1A0 /* [CP] Embed Pods Frameworks */,
+				46DAE61C24BF54F90097F09D /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FGRadio;
+			packageProductDependencies = (
+				469E0932253E0B430074C94A /* Reachability */,
+			);
+			productName = FGRadio;
+			productReference = 46A5092B249BE9B600741215 /* FGRadio.app */;
+			productType = "com.apple.product-type.application";
+		};
+		46A50940249BE9B900741215 /* FGRadioTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 46A5094D249BE9B900741215 /* Build configuration list for PBXNativeTarget "FGRadioTests" */;
+			buildPhases = (
+				3441693404B5F55235BDBFDD /* [CP] Check Pods Manifest.lock */,
+				46A5093D249BE9B900741215 /* Sources */,
+				46A5093E249BE9B900741215 /* Frameworks */,
+				46A5093F249BE9B900741215 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				46A50943249BE9B900741215 /* PBXTargetDependency */,
+			);
+			name = FGRadioTests;
+			productName = FGRadioTests;
+			productReference = 46A50941249BE9B900741215 /* FGRadioTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		46A50923249BE9B600741215 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1150;
+				LastUpgradeCheck = 1150;
+				ORGANIZATIONNAME = "Eugen Fedchenko";
+				TargetAttributes = {
+					46A5092A249BE9B600741215 = {
+						CreatedOnToolsVersion = 11.5;
+					};
+					46A50940249BE9B900741215 = {
+						CreatedOnToolsVersion = 11.5;
+						TestTargetID = 46A5092A249BE9B600741215;
+					};
+				};
+			};
+			buildConfigurationList = 46A50926249BE9B600741215 /* Build configuration list for PBXProject "FGRadio" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 46A50922249BE9B600741215;
+			packageReferences = (
+				469E0931253E0B430074C94A /* XCRemoteSwiftPackageReference "Reachability" */,
+			);
+			productRefGroup = 46A5092C249BE9B600741215 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				46A5092A249BE9B600741215 /* FGRadio */,
+				46A50940249BE9B900741215 /* FGRadioTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		46A50929249BE9B600741215 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				46DAE61B24BF54580097F09D /* Podfile in Resources */,
+				46A5093B249BE9B900741215 /* LaunchScreen.storyboard in Resources */,
+				46437E0424BF50D2005E9339 /* GoogleService-Info.plist in Resources */,
+				46A50938249BE9B900741215 /* Preview Assets.xcassets in Resources */,
+				46A50935249BE9B900741215 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		46A5093F249BE9B900741215 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3441693404B5F55235BDBFDD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FGRadioTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		46DAE61C24BF54F90097F09D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
+		57E972D06E3051E180FEA1A0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FGRadio/Pods-FGRadio-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FGRadio/Pods-FGRadio-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FGRadio/Pods-FGRadio-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5D1C9309254D8F50CE291C8E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FGRadio-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		46A50927249BE9B600741215 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				46A50951249BED3500741215 /* Player.swift in Sources */,
+				46A9CD2A249E8BE900C2B0E8 /* PlayerViewModel.swift in Sources */,
+				46A5092F249BE9B600741215 /* AppDelegate.swift in Sources */,
+				46531754253E0BB700E8E039 /* ConnectionObserver.swift in Sources */,
+				46A9CD25249D0E5800C2B0E8 /* Config.swift in Sources */,
+				46A0790C24D30EF500E7C591 /* ActivityIndicator.swift in Sources */,
+				46A50953249C815000741215 /* ObservationsBag.swift in Sources */,
+				46A50931249BE9B600741215 /* SceneDelegate.swift in Sources */,
+				46BCE13924B251AB00019CC2 /* TrackTitle.swift in Sources */,
+				462EAC9024ED167300E3CCD3 /* AboutView.swift in Sources */,
+				46A50933249BE9B600741215 /* PlayerView.swift in Sources */,
+				46BCE13B24B2581D00019CC2 /* CancelBag.swift in Sources */,
+				46A9CD28249D493300C2B0E8 /* MusicIndicator.swift in Sources */,
+				4653178F253F0B2900E8E039 /* Banner.swift in Sources */,
+				46DB1D1D24C8AF56000D007B /* VolumeSlider.swift in Sources */,
+				46BCE13724B2483500019CC2 /* Color.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		46A5093D249BE9B900741215 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				46A50946249BE9B900741215 /* FGRadioTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		46A50943249BE9B900741215 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 46A5092A249BE9B600741215 /* FGRadio */;
+			targetProxy = 46A50942249BE9B900741215 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		46A50939249BE9B900741215 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				46A5093A249BE9B900741215 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		46A50948249BE9B900741215 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		46A50949249BE9B900741215 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		46A5094B249BE9B900741215 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F1C48A6D566D146FEE076614 /* Pods-FGRadio.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_ASSET_PATHS = "\"FGRadio/Preview Content\"";
+				DEVELOPMENT_TEAM = FREWU4233C;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = FGRadio/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.4;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fg-radio.beta";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		46A5094C249BE9B900741215 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 902812D1299925DD480927E1 /* Pods-FGRadio.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"FGRadio/Preview Content\"";
+				DEVELOPMENT_TEAM = FREWU4233C;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = FGRadio/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.4;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fg-radio.beta";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		46A5094E249BE9B900741215 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8E5B367B2B56EE6FD0A5FA5E /* Pods-FGRadioTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H9XGMK3R95;
+				INFOPLIST_FILE = FGRadioTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.gavrilaf.FGRadioTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FGRadio.app/FGRadio";
+			};
+			name = Debug;
+		};
+		46A5094F249BE9B900741215 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8764683064D8556CCC8E4645 /* Pods-FGRadioTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H9XGMK3R95;
+				INFOPLIST_FILE = FGRadioTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.gavrilaf.FGRadioTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FGRadio.app/FGRadio";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		46A50926249BE9B600741215 /* Build configuration list for PBXProject "FGRadio" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				46A50948249BE9B900741215 /* Debug */,
+				46A50949249BE9B900741215 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		46A5094A249BE9B900741215 /* Build configuration list for PBXNativeTarget "FGRadio" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				46A5094B249BE9B900741215 /* Debug */,
+				46A5094C249BE9B900741215 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		46A5094D249BE9B900741215 /* Build configuration list for PBXNativeTarget "FGRadioTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				46A5094E249BE9B900741215 /* Debug */,
+				46A5094F249BE9B900741215 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		469E0931253E0B430074C94A /* XCRemoteSwiftPackageReference "Reachability" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		469E0932253E0B430074C94A /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 469E0931253E0B430074C94A /* XCRemoteSwiftPackageReference "Reachability" */;
+			productName = Reachability;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 46A50923249BE9B600741215 /* Project object */;
+}
