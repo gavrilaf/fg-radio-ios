@@ -75,6 +75,8 @@ final class Player: NSObject, ObservableObject {
     // MARK:- private
     
     private func setupPlayerItem() {
+        //print("open stream url: \(Config.shared.streamUrl)")
+        
         let playerItem = AVPlayerItem(url: Config.shared.streamUrl)
         
         let metadataOutput = AVPlayerItemMetadataOutput(identifiers: nil)
@@ -111,8 +113,8 @@ final class Player: NSObject, ObservableObject {
     private func setupNowPlaying() {
         var nowPlayingInfo = [String : Any]()
         
-        nowPlayingInfo[MPMediaItemPropertyArtist] = trackTitle.title
-        nowPlayingInfo[MPMediaItemPropertyTitle] = trackTitle.subtitle
+        nowPlayingInfo[MPMediaItemPropertyArtist] = trackTitle.isTitleEmpty ? "" : trackTitle.title
+        nowPlayingInfo[MPMediaItemPropertyTitle] = trackTitle.isSubtitleEmpty ? "" : trackTitle.subtitle
 
         if let image = UIImage(named: "logo-dark") {
             nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: image.size) { size in return image }

@@ -25,7 +25,7 @@ struct AboutView: View {
                 Button(action: {
                     self.isVisible = false
                 }) {
-                    Image(systemName: "xmark")
+                    Image(systemName: "xmark").foregroundColor(.white)
                 }
                 .buttonStyle(PlainButtonStyle())
             }
@@ -91,7 +91,7 @@ struct AboutView: View {
     
     var body: some View {
         ZStack {
-            Color.mainBackground.edgesIgnoringSafeArea(.vertical)
+            Color.mainBackground.opacity(0.85).edgesIgnoringSafeArea(.vertical)
             self.content
         }
     }

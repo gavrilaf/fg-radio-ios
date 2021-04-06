@@ -9,9 +9,9 @@
 import SwiftUI
 
 extension Color {
-    static let mainBackground = Color(UIColor.systemBackground)
-    static let primaryText = Color(UIColor.label)
-    static let secondaryText = Color(UIColor.secondaryLabel)
+    static let mainBackground = Color(UIColor.black)
+    static let primaryText = Color(UIColor.white)
+    static let secondaryText = Color(UIColor.gray)
     static let errorText = Color.red
     
     static let banner = Color(UIColor(hex: "#fd9426ff")!)

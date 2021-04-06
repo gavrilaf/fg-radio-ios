@@ -57,8 +57,8 @@ final class Config {
     @RemoteConfigStringWrapper("config_version", defaultValue: "1.0.local")
     var version: String
     
-    @RemoteConfigURLWrapper("stream_url", defaultValue: "https://radio.firstgear.ua/live")
-    var streamUrl: URL
+    @RemoteConfigURLWrapper("stream_url", defaultValue: "http://c2.radioboss.fm:8252/stream")
+    var streamUrl: URL 
     
     @RemoteConfigURLWrapper("intstagram_url", defaultValue: "https://www.instagram.com/firstgearshow/")
     var intstagramUrl: URL
