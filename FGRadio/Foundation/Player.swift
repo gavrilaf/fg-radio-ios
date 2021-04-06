@@ -75,7 +75,7 @@ final class Player: NSObject, ObservableObject {
     // MARK:- private
     
     private func setupPlayerItem() {
-        print("open stream url: \(Config.shared.streamUrl)")
+        //print("open stream url: \(Config.shared.streamUrl)")
         
         let playerItem = AVPlayerItem(url: Config.shared.streamUrl)
         
